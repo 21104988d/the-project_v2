@@ -1,8 +1,8 @@
-# Static Assets Checklist for dApp Frontend
+# To Do Checklist for dApp Frontend
 
 **Date:** July 23, 2025
 
-This checklist helps you set up and verify the required static files for your dApp. Update this list as you customize or add assets.
+This checklist helps you set up and verify the required static files and icons for your dApp. Update this list as you customize or add assets.
 
 ---
 
@@ -21,6 +21,14 @@ This checklist helps you set up and verify the required static files for your dA
 - [ ] 48x48 or 32x32 pixel size recommended
 - [ ] Looks good in browser tab and bookmarks
 - [ ] No copyright issues (original or licensed artwork)
+
+## Icons (SVG/PNG)
+- [ ] All required icon files exist in public/icons or src/assets/icons
+- [ ] No 404 errors for icon assets in browser or terminal
+- [ ] Replace placeholder icons with your brand or token icons
+- [ ] Optimize and compress icons for production
+- [ ] Update icon paths in components (e.g., `Icons.tsx`, `SwapCard.tsx`)
+- [ ] Test icon display in both development and production builds
 
 ---
 
