@@ -1,0 +1,6 @@
+{
+  "name": "Cross-Chain Swap Aggregator",
+  "description": "A powerful interface to swap crypto assets by connecting directly to multiple cross-chain bridges. This tool provides a seamless experience for users to find the best routes and execute complex cross-chain transactions.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

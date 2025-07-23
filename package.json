@@ -1,0 +1,36 @@
+{
+  "name": "cross-chain-swap-aggregator-backend",
+  "version": "1.0.0",
+  "description": "Deployment and management scripts for the swap aggregator smart contracts.",
+  "main": "index.js",
+  "scripts": {
+    "compile:evm": "solcjs --abi --bin --base-path . --include-path ./node_modules/ -o ./build/evm ./contracts/evm/FeeManager.sol",
+    "deploy:evm": "node scripts/evm/deploy.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "ethers",
+    "dapp",
+    "solana",
+    "anchor",
+    "rust"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts-upgradeable": "^5.0.2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.15.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "solc": "^0.8.26",
+    "vite": "^7.0.5"
+  }
+}
