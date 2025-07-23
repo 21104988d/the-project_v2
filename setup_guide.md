@@ -328,16 +328,22 @@ export const FEE_MANAGER_CONTRACT_ADDRESSES: { [key in WalletStandard]?: string 
 
 ## 5. Running the Frontend Application
 
-This project is a static React application. You can serve it locally using any simple HTTP server. A common choice is the `serve` package.
+This project is a static React application. You must first build the production assets, then serve them locally using any simple HTTP server. A common choice is the `serve` package.
 
-1.  **Install `serve` (if you don't have it):**
+1.  **Build the Production Assets:**
+    ```bash
+    npx vite build
+    ```
+    This will generate a `dist/` directory containing the production build.
+
+2.  **Install `serve` (if you don't have it):**
     ```bash
     npm install -g serve
     ```
 
-2.  **Serve the project root directory:**
+3.  **Serve the production build directory:**
     ```bash
-    serve .
+    serve dist
     ```
 
-The command will output a local URL (e.g., `http://localhost:3000`). Open this URL in your browser to use the dApp.
+The command will output a local URL (e.g., `http://localhost:3000`). Open this URL in your browser to use the dApp. If you see missing icons or a black screen, check the browser console for 404 errors and ensure all required assets are present in the correct directory.
