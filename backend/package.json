@@ -1,0 +1,33 @@
+{
+  "name": "bridge-token-automation",
+  "version": "1.0.0",
+  "description": "Backend automation system for bridges and tokens",
+  "main": "api.js",
+  "scripts": {
+    "start": "node api.js",
+    "scheduler": "node automationScheduler.js",
+    "bridge-automation": "node -e \"const BridgeAutomationService = require('./services/bridgeAutomation'); new BridgeAutomationService().runAutomation();\"",
+    "token-automation": "node -e \"const TokenAutomationService = require('./services/tokenAutomation'); new TokenAutomationService().runAutomation();\"",
+    "dev": "nodemon api.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "bridge",
+    "token",
+    "automation",
+    "cross-chain",
+    "defi"
+  ],
+  "author": "The Project Team",
+  "license": "MIT"
+}

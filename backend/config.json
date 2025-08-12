@@ -1,0 +1,16 @@
+{
+  "bridgeAutomation": {
+    "enabled": true,
+    "interval": 86400000,
+    "maxNewBridges": 5
+  },
+  "tokenAutomation": {
+    "enabled": true,
+    "interval": 43200000,
+    "maxNewTokens": 10
+  },
+  "notifications": {
+    "enabled": true,
+    "webhook": null
+  }
+}

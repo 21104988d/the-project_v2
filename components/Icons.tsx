@@ -8,9 +8,29 @@ const ImgIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => (
 
 // Asset Icons (pointing to where user can upload PNGs)
 export const LogoIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/logo.png" {...props} />;
+
+// Stablecoins
 export const UsdtIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/usdt.png" {...props} />;
 export const UsdcIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/usdc.png" {...props} />;
+export const DaiIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/dai.png" {...props} />;
+export const BusdIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/busd.png" {...props} />;
+export const FraxIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/frax.png" {...props} />;
 
+// Major Assets
+export const EthIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/eth.png" {...props} />;
+export const WethIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/weth.png" {...props} />;
+export const WbtcIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/wbtc.png" {...props} />;
+export const BtcIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/btc.png" {...props} />;
+export const BnbIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/bnb.png" {...props} />;
+export const AvaxIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/avax.png" {...props} />;
+export const MaticIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/matic.png" {...props} />;
+export const SolIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/sol.png" {...props} />;
+export const TrxIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/trx.png" {...props} />;
+export const SuiTokenIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/sui-token.png" {...props} />;
+export const NearTokenIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/near-token.png" {...props} />;
+
+// Blockchain Networks
+// Blockchain Networks
 export const EthereumIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/ethereum.png" {...props} />;
 export const ArbitrumIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/arbitrum.png" {...props} />;
 export const PolygonIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/polygon.png" {...props} />;
@@ -43,6 +63,19 @@ export const HyphenIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIc
 export const ConnextIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/connext.png" {...props} />;
 export const DebridgeIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/debridge.png" {...props} />;
 export const BaseBridgeIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/base.png" {...props} />;
+
+// Missing Bridge Icons - Critical Additions
+export const PortalBridgeIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/portal-bridge.png" {...props} />;
+export const PolygonBridgeIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/polygon-bridge.png" {...props} />;
+export const OptimismBridgeIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/optimism-bridge.png" {...props} />;
+export const AvalancheBridgeIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/avalanche-bridge.png" {...props} />;
+export const RouterProtocolIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/router-protocol.png" {...props} />;
+export const LiFiIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/lifi.png" {...props} />;
+export const OrbiterFinanceIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/orbiter-finance.png" {...props} />;
+export const AllbridgeIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/allbridge.png" {...props} />;
+export const RainbowBridgeIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/rainbow-bridge.png" {...props} />;
+export const AxelarIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/axelar.png" {...props} />;
+export const ThorchainIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/thorchain.png" {...props} />;
 
 export const SocketIcon = (props: ImgHTMLAttributes<HTMLImageElement>) => <ImgIcon src="/icons/socket.png" {...props} />;
 
@@ -147,3 +180,11 @@ export function ExternalLinkIcon({ className }: { className?: string }): React.R
     </svg>
   );
 }
+export const LayerZeroIcon: React.FC<IconProps> = ({ size = 24 }) => (
+  <div 
+    className="flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600"
+    style={{ width: size, height: size }}
+  >
+    <span style={{ fontSize: size * 0.6 }}>🔗</span>
+  </div>
+);

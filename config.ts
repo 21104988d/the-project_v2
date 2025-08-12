@@ -1,5 +1,3 @@
-import type { WalletStandard } from './types';
-
 // Project configuration for the cross-chain information aggregator
 
 export const PROJECT_CONFIG = {
@@ -48,8 +46,6 @@ export const API_CONFIG = {
 // Feature flags for development
 export const FEATURE_FLAGS = {
   enableRealBridgeAPIs: false, // Set to true when implementing real API calls
-  enableTransactionHistory: true,
-  enableWalletBalance: true,
   enablePriceData: false, // Future feature
   enableMultiLanguage: false, // Future feature
 };

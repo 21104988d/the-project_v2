@@ -9,13 +9,6 @@ export interface Aggregator {
 
 export type WalletStandard = 'evm' | 'solana' | 'tron' | 'sui' | 'near';
 
-export interface WalletProvider {
-  id:string;
-  name: string;
-  icon: ReactNode;
-  standard: WalletStandard;
-}
-
 export interface Chain {
   id: string;
   name: string;
@@ -55,19 +48,3 @@ export interface Route {
 }
 
 export type TransactionStatus = 'idle' | 'loading' | 'pending' | 'success' | 'error';
-
-export interface TransactionRecord {
-  id: string; // Using txHash for uniqueness
-  fromToken: Token;
-  toToken: Token;
-  fromAmount: string;
-  toAmount: string;
-  senderAddress: string;
-  receiverAddress: string;
-  txHash: string;
-  serviceFee: string; // Always $0.00
-  gasFee: string;
-  status: 'success' | 'failed' | 'pending';
-  timestamp?: number;
-  externalUrl?: string; // URL where transaction was actually conducted
-}

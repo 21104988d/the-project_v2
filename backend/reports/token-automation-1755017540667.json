@@ -1,0 +1,693 @@
+{
+  "timestamp": "2025-08-12T16:52:20.667Z",
+  "discovered": 98,
+  "added": 98,
+  "tokens": [
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "network": "Ethereum",
+      "marketCap": 2380284046976,
+      "category": "major"
+    },
+    {
+      "symbol": "XRP",
+      "name": "XRP",
+      "network": "Ethereum",
+      "marketCap": 190968951657,
+      "category": "major"
+    },
+    {
+      "symbol": "STETH",
+      "name": "Lido Staked Ether",
+      "network": "Ethereum",
+      "marketCap": 39384409638,
+      "category": "major"
+    },
+    {
+      "symbol": "DOGE",
+      "name": "Dogecoin",
+      "network": "Ethereum",
+      "marketCap": 34455619998,
+      "category": "major"
+    },
+    {
+      "symbol": "ADA",
+      "name": "Cardano",
+      "network": "Ethereum",
+      "marketCap": 29824711178,
+      "category": "major"
+    },
+    {
+      "symbol": "WSTETH",
+      "name": "Wrapped stETH",
+      "network": "Ethereum",
+      "marketCap": 17347139529,
+      "category": "major"
+    },
+    {
+      "symbol": "LINK",
+      "name": "Chainlink",
+      "network": "Ethereum",
+      "marketCap": 16003650761,
+      "category": "major"
+    },
+    {
+      "symbol": "HYPE",
+      "name": "Hyperliquid",
+      "network": "Ethereum",
+      "marketCap": 14824218171,
+      "category": "major"
+    },
+    {
+      "symbol": "WBETH",
+      "name": "Wrapped Beacon ETH",
+      "network": "Ethereum",
+      "marketCap": 14190143805,
+      "category": "major"
+    },
+    {
+      "symbol": "XLM",
+      "name": "Stellar",
+      "network": "Ethereum",
+      "marketCap": 13916734844,
+      "category": "major"
+    },
+    {
+      "symbol": "WEETH",
+      "name": "Wrapped eETH",
+      "network": "Ethereum",
+      "marketCap": 12487474412,
+      "category": "major"
+    },
+    {
+      "symbol": "BCH",
+      "name": "Bitcoin Cash",
+      "network": "Ethereum",
+      "marketCap": 12036023401,
+      "category": "major"
+    },
+    {
+      "symbol": "HBAR",
+      "name": "Hedera",
+      "network": "Ethereum",
+      "marketCap": 10807438174,
+      "category": "major"
+    },
+    {
+      "symbol": "USDE",
+      "name": "Ethena USDe",
+      "network": "Ethereum",
+      "marketCap": 10574239353,
+      "category": "major"
+    },
+    {
+      "symbol": "LTC",
+      "name": "Litecoin",
+      "network": "Ethereum",
+      "marketCap": 9485369366,
+      "category": "major"
+    },
+    {
+      "symbol": "TON",
+      "name": "Toncoin",
+      "network": "Ethereum",
+      "marketCap": 8769976898,
+      "category": "major"
+    },
+    {
+      "symbol": "LEO",
+      "name": "LEO Token",
+      "network": "Ethereum",
+      "marketCap": 8356079827,
+      "category": "major"
+    },
+    {
+      "symbol": "SHIB",
+      "name": "Shiba Inu",
+      "network": "Ethereum",
+      "marketCap": 7901333379,
+      "category": "major"
+    },
+    {
+      "symbol": "USDS",
+      "name": "USDS",
+      "network": "Ethereum",
+      "marketCap": 7898455037,
+      "category": "major"
+    },
+    {
+      "symbol": "BSC-USD",
+      "name": "Binance Bridged USDT (BNB Smart Chain)",
+      "network": "Ethereum",
+      "marketCap": 6786062740,
+      "category": "major"
+    },
+    {
+      "symbol": "UNI",
+      "name": "Uniswap",
+      "network": "Ethereum",
+      "marketCap": 6748903180,
+      "category": "defi"
+    },
+    {
+      "symbol": "WBT",
+      "name": "WhiteBIT Coin",
+      "network": "Ethereum",
+      "marketCap": 6549649418,
+      "category": "major"
+    },
+    {
+      "symbol": "CBBTC",
+      "name": "Coinbase Wrapped BTC",
+      "network": "Ethereum",
+      "marketCap": 6519685090,
+      "category": "major"
+    },
+    {
+      "symbol": "DOT",
+      "name": "Polkadot",
+      "network": "Ethereum",
+      "marketCap": 6301203861,
+      "category": "major"
+    },
+    {
+      "symbol": "CRO",
+      "name": "Cronos",
+      "network": "Ethereum",
+      "marketCap": 5433850137,
+      "category": "major"
+    },
+    {
+      "symbol": "ENA",
+      "name": "Ethena",
+      "network": "Ethereum",
+      "marketCap": 5331961068,
+      "category": "major"
+    },
+    {
+      "symbol": "SUSDE",
+      "name": "Ethena Staked USDe",
+      "network": "Ethereum",
+      "marketCap": 5138765105,
+      "category": "major"
+    },
+    {
+      "symbol": "BGB",
+      "name": "Bitget Token",
+      "network": "Ethereum",
+      "marketCap": 5073632525,
+      "category": "major"
+    },
+    {
+      "symbol": "PEPE",
+      "name": "Pepe",
+      "network": "Ethereum",
+      "marketCap": 5007636648,
+      "category": "major"
+    },
+    {
+      "symbol": "AAVE",
+      "name": "Aave",
+      "network": "Ethereum",
+      "marketCap": 4771508908,
+      "category": "defi"
+    },
+    {
+      "symbol": "XMR",
+      "name": "Monero",
+      "network": "Ethereum",
+      "marketCap": 4665398414,
+      "category": "major"
+    },
+    {
+      "symbol": "TAO",
+      "name": "Bittensor",
+      "network": "Ethereum",
+      "marketCap": 3682425896,
+      "category": "major"
+    },
+    {
+      "symbol": "ETC",
+      "name": "Ethereum Classic",
+      "network": "Ethereum",
+      "marketCap": 3578821639,
+      "category": "major"
+    },
+    {
+      "symbol": "MNT",
+      "name": "Mantle",
+      "network": "Ethereum",
+      "marketCap": 3455614347,
+      "category": "major"
+    },
+    {
+      "symbol": "ONDO",
+      "name": "Ondo",
+      "network": "Ethereum",
+      "marketCap": 3318674421,
+      "category": "major"
+    },
+    {
+      "symbol": "APT",
+      "name": "Aptos",
+      "network": "Ethereum",
+      "marketCap": 3204433227,
+      "category": "major"
+    },
+    {
+      "symbol": "PI",
+      "name": "Pi Network",
+      "network": "Ethereum",
+      "marketCap": 3020498550,
+      "category": "major"
+    },
+    {
+      "symbol": "ICP",
+      "name": "Internet Computer",
+      "network": "Ethereum",
+      "marketCap": 3010984743,
+      "category": "major"
+    },
+    {
+      "symbol": "JITOSOL",
+      "name": "Jito Staked SOL",
+      "network": "Ethereum",
+      "marketCap": 2799659214,
+      "category": "major"
+    },
+    {
+      "symbol": "OKB",
+      "name": "OKB",
+      "network": "Ethereum",
+      "marketCap": 2783145560,
+      "category": "major"
+    },
+    {
+      "symbol": "KAS",
+      "name": "Kaspa",
+      "network": "Ethereum",
+      "marketCap": 2409697767,
+      "category": "major"
+    },
+    {
+      "symbol": "ARB",
+      "name": "Arbitrum",
+      "network": "Ethereum",
+      "marketCap": 2401612644,
+      "category": "layer2"
+    },
+    {
+      "symbol": "BUIDL",
+      "name": "BlackRock USD Institutional Digital Liquidity Fund",
+      "network": "Ethereum",
+      "marketCap": 2387616882,
+      "category": "major"
+    },
+    {
+      "symbol": "ALGO",
+      "name": "Algorand",
+      "network": "Ethereum",
+      "marketCap": 2340046866,
+      "category": "major"
+    },
+    {
+      "symbol": "PENGU",
+      "name": "Pudgy Penguins",
+      "network": "Ethereum",
+      "marketCap": 2321575952,
+      "category": "major"
+    },
+    {
+      "symbol": "POL",
+      "name": "POL (ex-MATIC)",
+      "network": "Ethereum",
+      "marketCap": 2207828451,
+      "category": "layer2"
+    },
+    {
+      "symbol": "USD1",
+      "name": "USD1",
+      "network": "Ethereum",
+      "marketCap": 2205191049,
+      "category": "major"
+    },
+    {
+      "symbol": "VET",
+      "name": "VeChain",
+      "network": "Ethereum",
+      "marketCap": 2163937970,
+      "category": "major"
+    },
+    {
+      "symbol": "ATOM",
+      "name": "Cosmos Hub",
+      "network": "Ethereum",
+      "marketCap": 2148851477,
+      "category": "major"
+    },
+    {
+      "symbol": "RETH",
+      "name": "Rocket Pool ETH",
+      "network": "Ethereum",
+      "marketCap": 2086234149,
+      "category": "major"
+    },
+    {
+      "symbol": "RENDER",
+      "name": "Render",
+      "network": "Ethereum",
+      "marketCap": 2058793737,
+      "category": "major"
+    },
+    {
+      "symbol": "RSETH",
+      "name": "Kelp DAO Restaked ETH",
+      "network": "Ethereum",
+      "marketCap": 1988462828,
+      "category": "major"
+    },
+    {
+      "symbol": "FTN",
+      "name": "Fasttoken",
+      "network": "Ethereum",
+      "marketCap": 1979369904,
+      "category": "major"
+    },
+    {
+      "symbol": "GT",
+      "name": "Gate",
+      "network": "Ethereum",
+      "marketCap": 1977276498,
+      "category": "major"
+    },
+    {
+      "symbol": "BONK",
+      "name": "Bonk",
+      "network": "Ethereum",
+      "marketCap": 1947029641,
+      "category": "major"
+    },
+    {
+      "symbol": "WLD",
+      "name": "Worldcoin",
+      "network": "Ethereum",
+      "marketCap": 1944551956,
+      "category": "major"
+    },
+    {
+      "symbol": "SUSDS",
+      "name": "sUSDS",
+      "network": "Ethereum",
+      "marketCap": 1891905441,
+      "category": "major"
+    },
+    {
+      "symbol": "BNSOL",
+      "name": "Binance Staked SOL",
+      "network": "Ethereum",
+      "marketCap": 1884786708,
+      "category": "major"
+    },
+    {
+      "symbol": "FET",
+      "name": "Artificial Superintelligence Alliance",
+      "network": "Ethereum",
+      "marketCap": 1873890280,
+      "category": "major"
+    },
+    {
+      "symbol": "SEI",
+      "name": "Sei",
+      "network": "Ethereum",
+      "marketCap": 1841962798,
+      "category": "major"
+    },
+    {
+      "symbol": "JLP",
+      "name": "Jupiter Perpetuals Liquidity Provider Token",
+      "network": "Ethereum",
+      "marketCap": 1818314563,
+      "category": "major"
+    },
+    {
+      "symbol": "TRUMP",
+      "name": "Official Trump",
+      "network": "Ethereum",
+      "marketCap": 1811432270,
+      "category": "major"
+    },
+    {
+      "symbol": "SKY",
+      "name": "Sky",
+      "network": "Ethereum",
+      "marketCap": 1796618232,
+      "category": "major"
+    },
+    {
+      "symbol": "FIL",
+      "name": "Filecoin",
+      "network": "Ethereum",
+      "marketCap": 1777657368,
+      "category": "major"
+    },
+    {
+      "symbol": "IP",
+      "name": "Story",
+      "network": "Ethereum",
+      "marketCap": 1704822883,
+      "category": "major"
+    },
+    {
+      "symbol": "OSETH",
+      "name": "StakeWise Staked ETH",
+      "network": "Ethereum",
+      "marketCap": 1678126463,
+      "category": "major"
+    },
+    {
+      "symbol": "SPX",
+      "name": "SPX6900",
+      "network": "Ethereum",
+      "marketCap": 1668540979,
+      "category": "major"
+    },
+    {
+      "symbol": "QNT",
+      "name": "Quant",
+      "network": "Ethereum",
+      "marketCap": 1660739103,
+      "category": "major"
+    },
+    {
+      "symbol": "FLR",
+      "name": "Flare",
+      "network": "Ethereum",
+      "marketCap": 1634188134,
+      "category": "major"
+    },
+    {
+      "symbol": "LBTC",
+      "name": "Lombard Staked BTC",
+      "network": "Ethereum",
+      "marketCap": 1626369858,
+      "category": "major"
+    },
+    {
+      "symbol": "LSETH",
+      "name": "Liquid Staked ETH",
+      "network": "Ethereum",
+      "marketCap": 1626052917,
+      "category": "major"
+    },
+    {
+      "symbol": "JUP",
+      "name": "Jupiter",
+      "network": "Ethereum",
+      "marketCap": 1594479211,
+      "category": "major"
+    },
+    {
+      "symbol": "METH",
+      "name": "Mantle Staked Ether",
+      "network": "Ethereum",
+      "marketCap": 1591740508,
+      "category": "major"
+    },
+    {
+      "symbol": "KCS",
+      "name": "KuCoin",
+      "network": "Ethereum",
+      "marketCap": 1530744645,
+      "category": "major"
+    },
+    {
+      "symbol": "USDTB",
+      "name": "USDtb",
+      "network": "Ethereum",
+      "marketCap": 1460583784,
+      "category": "major"
+    },
+    {
+      "symbol": "XDC",
+      "name": "XDC Network",
+      "network": "Ethereum",
+      "marketCap": 1452976691,
+      "category": "major"
+    },
+    {
+      "symbol": "INJ",
+      "name": "Injective",
+      "network": "Ethereum",
+      "marketCap": 1415118149,
+      "category": "major"
+    },
+    {
+      "symbol": "LDO",
+      "name": "Lido DAO",
+      "network": "Ethereum",
+      "marketCap": 1405734661,
+      "category": "major"
+    },
+    {
+      "symbol": "HASH",
+      "name": "Provenance Blockchain",
+      "network": "Ethereum",
+      "marketCap": 1381085072,
+      "category": "major"
+    },
+    {
+      "symbol": "PUMP",
+      "name": "Pump.fun",
+      "network": "Ethereum",
+      "marketCap": 1370979062,
+      "category": "major"
+    },
+    {
+      "symbol": "OP",
+      "name": "Optimism",
+      "network": "Ethereum",
+      "marketCap": 1367738487,
+      "category": "layer2"
+    },
+    {
+      "symbol": "USDT0",
+      "name": "USDT0",
+      "network": "Ethereum",
+      "marketCap": 1363264328,
+      "category": "major"
+    },
+    {
+      "symbol": "NEXO",
+      "name": "NEXO",
+      "network": "Ethereum",
+      "marketCap": 1363012940,
+      "category": "major"
+    },
+    {
+      "symbol": "TIA",
+      "name": "Celestia",
+      "network": "Ethereum",
+      "marketCap": 1353853221,
+      "category": "major"
+    },
+    {
+      "symbol": "EZETH",
+      "name": "Renzo Restaked ETH",
+      "network": "Ethereum",
+      "marketCap": 1352082940,
+      "category": "major"
+    },
+    {
+      "symbol": "CRV",
+      "name": "Curve DAO",
+      "network": "Ethereum",
+      "marketCap": 1345202766,
+      "category": "defi"
+    },
+    {
+      "symbol": "STX",
+      "name": "Stacks",
+      "network": "Ethereum",
+      "marketCap": 1323077708,
+      "category": "major"
+    },
+    {
+      "symbol": "AAVE",
+      "name": "Aave",
+      "network": "Ethereum",
+      "marketCap": 1500000000,
+      "category": "defi"
+    },
+    {
+      "symbol": "COMP",
+      "name": "Compound",
+      "network": "Ethereum",
+      "marketCap": 800000000,
+      "category": "defi"
+    },
+    {
+      "symbol": "MKR",
+      "name": "Maker",
+      "network": "Ethereum",
+      "marketCap": 1200000000,
+      "category": "defi"
+    },
+    {
+      "symbol": "SNX",
+      "name": "Synthetix",
+      "network": "Ethereum",
+      "marketCap": 600000000,
+      "category": "defi"
+    },
+    {
+      "symbol": "YFI",
+      "name": "yearn.finance",
+      "network": "Ethereum",
+      "marketCap": 400000000,
+      "category": "defi"
+    },
+    {
+      "symbol": "ARB",
+      "name": "Arbitrum",
+      "network": "Arbitrum",
+      "marketCap": 2000000000,
+      "category": "layer2"
+    },
+    {
+      "symbol": "OP",
+      "name": "Optimism",
+      "network": "Optimism",
+      "marketCap": 1800000000,
+      "category": "layer2"
+    },
+    {
+      "symbol": "CAKE",
+      "name": "PancakeSwap",
+      "network": "BSC",
+      "marketCap": 500000000,
+      "category": "dex"
+    },
+    {
+      "symbol": "QUICK",
+      "name": "QuickSwap",
+      "network": "Polygon",
+      "marketCap": 150000000,
+      "category": "dex"
+    },
+    {
+      "symbol": "JOE",
+      "name": "Trader Joe",
+      "network": "Avalanche",
+      "marketCap": 200000000,
+      "category": "dex"
+    },
+    {
+      "symbol": "RAY",
+      "name": "Raydium",
+      "network": "Solana",
+      "marketCap": 300000000,
+      "category": "dex"
+    }
+  ]
+}

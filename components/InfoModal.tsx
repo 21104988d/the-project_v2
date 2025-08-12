@@ -1,5 +1,5 @@
 import React from 'react';
-import { InformationCircleIcon, XMarkIcon } from './Icons';
+import { InformationCircleIcon } from './Icons';
 
 interface InfoModalProps {
   isOpen: boolean;

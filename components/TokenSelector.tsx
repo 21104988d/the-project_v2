@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TOKENS, CHAINS } from '../constants';
+import { CHAINS } from '../constants';
 import type { Token, Chain } from '../types';
 import clsx from 'clsx';
 
@@ -14,18 +14,19 @@ const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => (
 interface TokenSelectorProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelect: (token: Token) => void;
+  tokens: Token[];
+  onSelectToken: (token: Token) => void;
   title: string;
 }
 
-export function TokenSelector({ isOpen, onClose, onSelect, title }: TokenSelectorProps): React.ReactNode {
+export function TokenSelector({ isOpen, onClose, tokens, onSelectToken, title }: TokenSelectorProps): React.ReactNode {
   const [selectedAssetSymbol, setSelectedAssetSymbol] = useState<string | null>(null);
   const [tokenSearchQuery, setTokenSearchQuery] = useState('');
   const [chainSearchQuery, setChainSearchQuery] = useState('');
 
   const uniqueAssets = useMemo(() => {
     const assets = new Map<string, { symbol: string; name: string; icon: React.ReactNode }>();
-    TOKENS.forEach(token => {
+    tokens.forEach(token => {
       if (!assets.has(token.symbol)) {
         assets.set(token.symbol, {
           symbol: token.symbol,
@@ -35,7 +36,7 @@ export function TokenSelector({ isOpen, onClose, onSelect, title }: TokenSelecto
       }
     });
     return Array.from(assets.values());
-  }, []);
+  }, [tokens]);
 
   const lowercasedTokenQuery = tokenSearchQuery.toLowerCase();
   const lowercasedChainQuery = chainSearchQuery.toLowerCase();
@@ -58,9 +59,9 @@ export function TokenSelector({ isOpen, onClose, onSelect, title }: TokenSelecto
   const availableChains = useMemo(() => {
     if (!selectedAssetSymbol) return new Set();
     return new Set(
-      TOKENS.filter(t => t.symbol === selectedAssetSymbol).map(t => t.chain.id)
+      tokens.filter(t => t.symbol === selectedAssetSymbol).map(t => t.chain.id)
     );
-  }, [selectedAssetSymbol]);
+  }, [selectedAssetSymbol, tokens]);
 
   const handleSelectAsset = (symbol: string) => {
     setSelectedAssetSymbol(symbol);
@@ -69,9 +70,9 @@ export function TokenSelector({ isOpen, onClose, onSelect, title }: TokenSelecto
   const handleSelectChain = (chain: Chain) => {
     if (!selectedAssetSymbol || !availableChains.has(chain.id)) return;
     
-    const token = TOKENS.find(t => t.symbol === selectedAssetSymbol && t.chain.id === chain.id);
+    const token = tokens.find(t => t.symbol === selectedAssetSymbol && t.chain.id === chain.id);
     if (token) {
-      onSelect(token);
+      onSelectToken(token);
     }
   };
 

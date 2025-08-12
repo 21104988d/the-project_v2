@@ -10,7 +10,12 @@
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf dist node_modules/.cache",
-    "setup": "npm install && mkdir -p public/icons"
+    "setup": "npm install && mkdir -p public/icons",
+    "automation": "./start-automation.sh",
+    "backend": "cd backend && npm start",
+    "backend:scheduler": "cd backend && npm run scheduler",
+    "backend:bridge": "cd backend && npm run bridge-automation",
+    "backend:token": "cd backend && npm run token-automation"
   },
   "keywords": [
     "cross-chain",
