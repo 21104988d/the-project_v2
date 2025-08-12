@@ -1,165 +1,221 @@
-# To Do Checklist for dApp Frontend
+# Frontend Setup Checklist
 
-**Date:** July 23, 2025
+**Date:** August 6, 2025
 
-This checklist helps you set up and verify the required static files and icons for your dApp. Update this list as you customize or add assets.
-
----
-
-## index.css
-- [x] File exists in project root
-- [x] Contains basic body, heading, and button styles
-- [ ] All custom styles are documented (comments or style guide reference)
-- [ ] No !important usage unless absolutely necessary
-- [ ] All CSS variables (if used) are defined and scoped properly
-- [ ] Uses your preferred color scheme and fonts
-- [ ] Responsive design for mobile and desktop
-- [ ] No unused or duplicate CSS rules
-- [ ] Linked in your HTML or imported in your main JS/TS file
-
-### Custom styles for all major components:
-- [ ] App.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-- [ ] SwapCard.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-- [ ] ConnectWalletButton.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-- [ ] ConnectWalletModal.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-- [ ] InfoModal.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-- [ ] QuoteList.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-- [ ] TokenSelector.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-- [ ] TransactionHistory.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-- [ ] TransactionStatusModal.tsx
-  - [ ] Unique class names/selectors
-  - [ ] Mobile responsive
-  - [ ] Matches brand/design guidelines
-  - [ ] Tested in light/dark mode
-
-## favicon.ico
-- [x] File exists in project root
-- [ ] Custom icon (replace placeholder with your brand logo)
-- [ ] 48x48 or 32x32 pixel size recommended
-- [ ] Looks good in browser tab and bookmarks
-- [ ] No copyright issues (original or licensed artwork)
-- [ ] Favicon displays correctly on all major browsers
-- [ ] Favicon is included in manifest.json (if using PWA)
-
-## Icons (SVG/PNG)
-- [ ] All required icon files exist in public/icons or src/assets/icons
-- [ ] No 404 errors for icon assets in browser or terminal
-- [ ] Replace placeholder icons with your brand or token icons
-- [ ] Optimize and compress icons for production
-- [ ] Update icon paths in components (e.g., `Icons.tsx`, `SwapCard.tsx`)
-- [ ] Test icon display in both development and production builds
-- [ ] SVGs are sanitized (no malicious code)
-- [ ] PNGs/JPEGs are losslessly compressed
-- [ ] Icons are tested for retina/high-DPI screens
-
-### For each icon (see list below):
-  - [ ] Icon is visually correct (matches brand/token)
-  - [ ] Icon is optimized (compressed, correct format)
-  - [ ] Icon displays correctly at all required sizes
-  - [ ] Icon has fallback (alt text or default image if missing)
-
-### Icons Used (from components/Icons.tsx):
-- [ ] logo.png
-- [ ] usdt.png
-- [ ] usdc.png
-- [ ] ethereum.png
-- [ ] arbitrum.png
-- [ ] polygon.png
-- [ ] optimism.png
-- [ ] bsc.png
-- [ ] avalanche.png
-- [ ] solana.png
-- [ ] tron.png
-- [ ] sui.png
-- [ ] near.png
-- [ ] cro.png
-- [ ] base.png
-- [ ] gnosis.png
-- [ ] fantom.png
-- [ ] polygon-zkevm.png
-- [ ] zksync.png
-- [ ] linea.png
-- [ ] stargate.png
-- [ ] synapse.png
-- [ ] wormhole.png
-- [ ] relay.png
-- [ ] cctp.png
-- [ ] celer.png
-- [ ] mayan.png
-- [ ] across.png
-- [ ] hop.png
-- [ ] hyphen.png
-- [ ] connext.png
-- [ ] debridge.png
-- [ ] socket.png
-- [ ] metamask.png
-- [ ] coinbase.png
-- [ ] phantom.png
-- [ ] solflare.png
-- [ ] tronlink.png
-- [ ] suiet.png
-- [ ] okx.png
-- [ ] crypto.png
-- [ ] binance.png
+This checklist helps you set up the cross-chain bridge information aggregator frontend. Focus on completing the icon setup first as this is critical for the app to display properly.
 
 ---
 
-## General Static Asset Setup
-- [ ] All static files are in the correct directory (root or public/)
-- [ ] No 404 errors for static assets in browser or terminal
-- [ ] Assets are included in your build/deploy process
-- [ ] Assets display correctly in GitHub Codespaces and local environments
-- [ ] All icons and images used in each component are present and render correctly
-- [ ] No broken image links or missing assets in browser console
-- [ ] Components tested in both development and production builds
-- [ ] Static assets are included in the build output
-- [ ] No asset path issues after deployment
-- [ ] Asset cache busting/versioning is enabled for production
-- [ ] All assets have correct permissions (readable by server)
-- [ ] Asset loading is tested on slow networks
-- [ ] Build process logs missing assets or errors
-- [ ] Static assets are referenced using relative paths (not absolute URLs)
+## 🚨 CRITICAL: Icons Setup (Must Complete First)
 
-## Accessibility
-- [ ] All images/icons have descriptive alt text
-- [ ] Color contrast meets accessibility standards
-- [ ] All interactive icons/buttons are keyboard accessible
-- [ ] All icons used as buttons have ARIA labels
+**Priority 1: Create icons directory**
+- [ ] Create `/public/icons/` directory in your project
+- [ ] Read the icons README guide: `/public/icons/README.md`
+
+**Priority 2: Download from https://cryptologos.cc/**
+- [ ] Visit https://cryptologos.cc/ for official crypto logos
+- [ ] Download high-quality PNG versions (256x256px or larger)
+- [ ] Use transparent backgrounds when available
+- [ ] Rename files to match exact paths in components/Icons.tsx
+
+### Required Icon Downloads (❌ = Missing, ✅ = Downloaded):
+
+**Essential Icons (Download These First):**
+- [ ] ❌ `/public/icons/logo.png` - Create custom logo for "The Project"
+- [ ] ❌ `/public/icons/usdt.png` - https://cryptologos.cc/tether
+- [ ] ❌ `/public/icons/usdc.png` - https://cryptologos.cc/usd-coin
+- [ ] ❌ `/public/icons/ethereum.png` - https://cryptologos.cc/ethereum
+- [ ] ❌ `/public/icons/metamask.png` - https://cryptologos.cc/metamask
+
+**Blockchain Networks:**
+- [ ] ❌ `/public/icons/arbitrum.png` - https://cryptologos.cc/arbitrum  
+- [ ] ❌ `/public/icons/polygon.png` - https://cryptologos.cc/polygon
+- [ ] ❌ `/public/icons/optimism.png` - https://cryptologos.cc/optimism
+- [ ] ❌ `/public/icons/bsc.png` - https://cryptologos.cc/bnb
+- [ ] ❌ `/public/icons/avalanche.png` - https://cryptologos.cc/avalanche
+- [ ] ❌ `/public/icons/solana.png` - https://cryptologos.cc/solana
+- [ ] ❌ `/public/icons/tron.png` - https://cryptologos.cc/tron
+- [ ] ❌ `/public/icons/sui.png` - https://cryptologos.cc/sui
+- [ ] ❌ `/public/icons/near.png` - https://cryptologos.cc/near-protocol
+- [ ] ❌ `/public/icons/base.png` - Search "Base Coinbase" or use Coinbase logo
+
+**Bridge Protocols:**
+- [ ] ❌ `/public/icons/stargate.png` - https://stargate.finance/
+- [ ] ❌ `/public/icons/wormhole.png` - https://cryptologos.cc/wormhole
+- [ ] ❌ `/public/icons/celer.png` - https://cryptologos.cc/celer-network
+- [ ] ❌ `/public/icons/hop.png` - https://hop.exchange/
+- [ ] ❌ `/public/icons/across.png` - https://across.to/
+
+**Wallet Providers:**
+- [ ] ❌ `/public/icons/coinbase.png` - https://cryptologos.cc/coinbase
+- [ ] ❌ `/public/icons/phantom.png` - https://phantom.app/
+- [ ] ❌ `/public/icons/tronlink.png` - https://www.tronlink.org/
+
+### Testing Icons:
+- [ ] Run `npx vite` and check browser console for 404 errors
+- [ ] Open SwapCard and verify token icons display
+- [ ] Open ConnectWalletModal and verify wallet icons display  
+- [ ] Check app header logo displays correctly
+- [ ] Test on mobile devices for proper scaling
 
 ---
 
-**Tip:**
-- Update this checklist whenever you add, remove, or change static assets.
-- For production, optimize and compress images/icons for faster load times.
+## 🎨 Styling & Branding
+
+### Custom CSS (index.css)
+- [ ] File exists and contains Tailwind imports
+- [ ] Custom brand colors are defined
+- [ ] Mobile responsive design tested
+- [ ] Dark theme compatibility verified
+- [ ] No unused CSS rules
+
+### Branding Customization
+- [ ] Replace project name in App.tsx header
+- [ ] Update meta tags in index.html
+- [ ] Create custom logo.png (32x32px minimum)
+- [ ] Update favicon.ico with branded icon
+- [ ] Customize brand colors in index.css
+
+---
+
+## ⚙️ Configuration & Setup
+
+### Project Dependencies
+- [ ] `npm install` completed successfully
+- [ ] All TypeScript errors resolved
+- [ ] Vite development server starts without errors
+- [ ] Production build (`npx vite build`) works
+
+### Token & Chain Configuration
+- [ ] Review tokens in constants.ts
+- [ ] Verify chain configurations are correct
+- [ ] Test token selector displays all options
+- [ ] Confirm chain icons match network names
+
+### Wallet Integration
+- [ ] MetaMask detection working
+- [ ] Phantom wallet detection working (Solana)
+- [ ] TronLink detection working (Tron)
+- [ ] Wallet connection modal displays correctly
+- [ ] Address validation working for all chains
+
+---
+
+## 🔗 Bridge Integration
+
+### Mock Data (Current State)
+- [ ] SwapCard shows quote information
+- [ ] Multiple bridge options display
+- [ ] Route selection working
+- [ ] External links open correctly
+
+### API Integration (Future Enhancement)
+- [ ] Plan real bridge API integrations
+- [ ] Identify rate limiting requirements
+- [ ] Design error handling for failed API calls
+- [ ] Implement caching for quote data
+
+---
+
+## 🧪 Testing & Quality
+
+### Browser Testing
+- [ ] Chrome/Chromium compatibility
+- [ ] Firefox compatibility
+- [ ] Safari compatibility (macOS)
+- [ ] Mobile browser testing (iOS/Android)
+
+### Responsive Design
+- [ ] Mobile viewport (320px-768px)
+- [ ] Tablet viewport (768px-1024px)
+- [ ] Desktop viewport (1024px+)
+- [ ] Touch interaction testing
+
+### Error Handling
+- [ ] Wallet not installed scenarios
+- [ ] Network connection errors
+- [ ] Invalid address formats
+- [ ] Missing token balances
+
+### Performance
+- [ ] Fast initial load time
+- [ ] Smooth animations and transitions
+- [ ] No console errors or warnings
+- [ ] Efficient re-renders
+
+---
+
+## 📦 Deployment Preparation
+
+### Production Build
+- [ ] `npx vite build` executes successfully
+- [ ] All assets included in dist/ folder
+- [ ] No missing dependencies in production
+- [ ] Source maps generated for debugging
+
+### Static Hosting Setup
+- [ ] Choose hosting platform (Netlify, Vercel, GitHub Pages)
+- [ ] Configure build commands
+- [ ] Set up custom domain (optional)
+- [ ] Test production deployment
+
+### Performance Optimization
+- [ ] Image compression for icons
+- [ ] Bundle size analysis
+- [ ] Lazy loading implementation
+- [ ] CDN configuration (if needed)
+
+---
+
+## 📋 Documentation
+
+### User-Facing Documentation
+- [ ] Update README.md with current features
+- [ ] Include setup instructions for users
+- [ ] Add troubleshooting section
+- [ ] Document supported wallets and chains
+
+### Developer Documentation
+- [ ] Code comments in complex functions
+- [ ] API integration documentation
+- [ ] Configuration options explained
+- [ ] Contribution guidelines
+
+---
+
+## ✅ Launch Checklist
+
+### Pre-Launch Verification
+- [ ] All icons display correctly
+- [ ] Wallet connections work on multiple browsers
+- [ ] Mobile responsiveness verified
+- [ ] Error states handle gracefully
+- [ ] External links open to correct bridge websites
+
+### Legal & Compliance
+- [ ] Disclaimer prominently displayed
+- [ ] "Information only" messaging clear
+- [ ] External redirect warnings shown
+- [ ] No financial advice language
+
+### Community Preparation
+- [ ] GitHub repository cleaned up
+- [ ] Documentation complete
+- [ ] Demo screenshots/videos prepared
+- [ ] Community feedback channels ready
+
+---
+
+**IMMEDIATE NEXT STEPS:**
+1. 🚨 **Download essential icons** (logo, USDT, USDC, Ethereum, MetaMask)
+2. ⚡ **Test development server** with `npx vite`
+3. 🔧 **Customize branding** (logo, colors, project name)
+4. 📱 **Test wallet connections** with real browser extensions
+5. 🚀 **Build production version** with `npx vite build`
+
+**Success Criteria:**
+- No 404 errors for icons in browser console
+- All UI components display correctly
+- Wallet connection flow works smoothly
+- App loads quickly on mobile and desktop
+- External bridge links redirect properly

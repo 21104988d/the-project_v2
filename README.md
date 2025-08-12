@@ -1,60 +1,93 @@
-# The Project - Stablecoin Core Cross-Chain Router
+# The Project - Cross-Chain Bridge Information Aggregator
 
-**Version:** v2.2.5  
-**Last Updated:** July 23, 2025
+**Version:** v3.0.0 (Community Edition)  
+**Last Updated:** August 6, 2025
 
 ## 🌟 Project Overview
 
-A production-ready cross-chain stablecoin routing platform supporting USDT and USDC. The dApp enables secure, efficient transfers of stablecoins across EVM, Solana, Tron, Sui, and NEAR networks using smart contract aggregation and off-chain routing optimization. The frontend is built with React, TypeScript, Vite, and Tailwind CSS, and supports multiple wallet integrations.
+The Project is a **frontend-only, informational aggregator platform** designed to help users navigate the cross-chain landscape. It displays publicly available data on third-party cross-chain bridges, allowing users to compare routes for stablecoins like USDT and USDC across EVM, Solana, Tron, Sui, and NEAR networks.
+
+Our dApp functions as a "search engine" for cross-chain solutions. It utilizes client-side data aggregation to present routing options based on estimated fees and transfer times. Users are then redirected to external, independent bridge providers to conduct their transactions securely and efficiently.
+
+The frontend is built with React, TypeScript, Vite, and Tailwind CSS, and supports connections to multiple wallets for display purposes only.
 
 ### ✅ Development Status
 
-**Infrastructure Foundation (Parts 1-5)** ✅
-- Multi-chain setup: EVM, Solana, Tron, Sui, NEAR
-- Fee manager smart contracts for all supported chains
-- React DApp with multi-wallet integration (MetaMask, Phantom, TronLink, Sui, NEAR)
-- Routing engine with price aggregation
+**Frontend Foundation** ✅
+- Multi-chain information display: EVM, Solana, Tron, Sui, NEAR
+- React DApp with multi-wallet connection (MetaMask, Phantom, TronLink, Sui, NEAR)
+- Data aggregation interface with price and time comparison
 - Frontend-only static hosting (Vite)
-- Quality assurance: ESLint, Prettier, Jest, manual and automated checklists
-- Security: OpenZeppelin patterns, environment validation, key management, role-based access controls
+- Quality assurance: ESLint, Prettier, TypeScript
+- Security: Input validation, secure external redirects
 
 **Repository Verification Complete** ✅
-- All packages compile and pass tests
-- Docker containers build and run
+- All packages compile and pass type checking
+- Vite builds successfully
 - Documentation builds without errors
 
-**Next Phase: Production Deployment**
-- Mainnet deployment preparation
-- Security audits and penetration testing
+**Next Phase: Community Launch**
+- Icon setup and visual polish
+- Real bridge API integration
 - Performance optimization and monitoring
-- Feature expansion: multi-stablecoin support
+- Feature expansion: support for more bridges and tokens
 
 ## 📁 Repository Structure
 ```
 project-root/
 ├── components/           # React UI components
-├── contracts/            # Smart contracts (Solidity, Rust, Move)
-├── scripts/              # Deployment and utility scripts
-├── services/             # Routing, wallet, and history services
-├── docs/                 # Technical documentation
+├── services/             # Data aggregation and wallet connection services
 ├── public/               # Static assets (icons, images)
-├── dist/                 # Production build output
 ├── types.ts              # Shared types and interfaces
-├── config.ts             # Contract addresses and config
+├── constants.ts          # App configuration (tokens, chains, wallets)
+├── config.ts             # API endpoints and configuration
+├── App.tsx               # Main application component
 ├── README.md             # Main documentation
 └── ...                   # Other project files
 ```
 
+---
+
+## ⚖️ Legal Disclaimer & Nature of Service
+
+**IMPORTANT: This project functions solely as a non-profit, informational aggregator and directory for publicly available cross-chain bridge data. It is NOT a financial service, exchange, broker, or investment advisory platform.**
+
+### Core Principles of Our Service:
+
+1.  **No Transaction Execution:** This platform **DOES NOT** execute, facilitate, arrange, or in any way participate in the user's cross-chain transactions. Our service's sole function is to display publicly available data about third-party bridge providers. When a user chooses an option, they are **redirected** to the external, independent website of the respective bridge provider to conduct their transaction.
+
+2.  **No Custody of Funds:** At no point does this platform or its operators take custody of, or have any control over, the user's private keys or digital assets. All interactions are conducted directly between the user's own wallet and the external bridge providers.
+
+3.  **Objective Data Presentation:** All data presented, including but not limited to transfer times and estimated fees, is aggregated from public sources and is provided for **informational purposes only**. We do not "recommend" or "advise" any specific provider. The data is presented objectively to assist users in their own research and decision-making.
+
+4.  **Non-Profit & No Fees:** This platform **DOES NOT** charge any fees, commissions, or any form of payment from the user for its services. The project is provided to the community on a non-profit basis.
+
+### User's Acknowledgment and Responsibility:
+
+By using this service, you acknowledge and agree that:
+- You are solely responsible for your own due diligence and for the security of your assets.
+- The use of third-party cross-chain bridges carries inherent risks, including but not limited to smart contract vulnerabilities, network failures, and potential loss of funds.
+- We shall not be held liable for any losses, damages, or claims arising from your use of any third-party services linked from this platform.
+
+---
+
 ## 🚀 Quick Start
+
 ### Prerequisites
 - Node.js v18+
 - npm
-- Vite (auto-installed)
-- Solana CLI, Sui CLI, NEAR CLI, TronLink (for full multi-chain deployment)
+- Web browser with wallet extensions (MetaMask, Phantom, etc.)
 
 ### Development Setup
 ```bash
+# Clone the repository
+git clone [your-repo-url]
+cd the-project_v2
+
+# Install dependencies
 npm install
+
+# Run the development server
 npx vite
 # Open http://localhost:5173 in your browser
 ```
@@ -68,56 +101,41 @@ serve dist
 ```
 
 ## 🛠️ Technology Stack
-- React 18+ (TypeScript, Vite)
-- Tailwind CSS
-- Multi-wallet support: MetaMask, Phantom, TronLink, Sui, NEAR
-- Smart contracts: Solidity (EVM, Tron), Rust (Solana, NEAR), Move (Sui)
-- Supported networks: EVM (Ethereum, Polygon, BSC, etc.), Solana, Tron, Sui, NEAR
+- **Frontend:** React 18+ (TypeScript, Vite), Tailwind CSS
+- **Wallet Integration:** ethers.js, Solana/web3.js, TronWeb, etc.
+- **Supported Wallets:** MetaMask, Phantom, TronLink, Sui Wallet, NEAR Wallet
+- **Supported Networks:** EVM (Ethereum, Polygon, BSC, etc.), Solana, Tron, Sui, NEAR
 
 ## 🧪 Testing & Quality
-- TypeScript for type safety
-- ESLint + Prettier for formatting
-- Jest for unit tests
-- Manual and automated review checklists
-
-## 🔒 Security & Compliance
-- OpenZeppelin security patterns
-- Environment variable validation
-- Secure key management
-- Role-based access controls
+- **Type Safety:** TypeScript
+- **Code Quality:** ESLint + Prettier for consistent formatting
+- **Review Process:** Manual testing and quality assurance
 
 ## 📚 Documentation
-- [To-Do Checklist](to_do_checklist.md) — Static assets, icons, and UI review
+- [To-Do Checklist](to_do_checklist.md) — Icon setup and UI review
 - [Setup Guide](setup_guide.md) — Installation and build instructions
-- [Technical Architecture](technical_paper.md) — System design and contracts
-- [Version History](VERSION_CHANGELOG.md) — Change tracking
 
 ## 🤝 Contributing
-1. Fork the repository and create a feature branch
-2. Follow TypeScript and ESLint standards
-3. Write comprehensive tests for changes
-4. Use conventional commit messages
-5. Submit pull request with detailed description
-
-## 📈 Current Status
-- Infrastructure: Multi-chain, Vite/React/TypeScript
-- Fee manager contracts: EVM, Solana, Tron, Sui, NEAR
-- Frontend: Multi-wallet, routing engine, static hosting
-- Quality assurance: Testing, documentation, checklists
-- Security: Key management, environment validation, OpenZeppelin patterns
+We welcome contributions from the community!
+1. Fork the repository and create a new feature branch.
+2. Adhere to the established TypeScript and ESLint standards.
+3. Test your changes thoroughly.
+4. Use conventional commit messages for clarity.
+5. Submit a pull request with a detailed description of your changes.
 
 ## 📋 Next Milestones
-1. Production deployment: Mainnet launch and monitoring
-2. Security audits: Penetration testing and optimization
-3. Feature expansion: Multi-stablecoin support
+1.  **Icon Setup:** Complete visual assets for all supported tokens and bridges
+2.  **API Integration:** Connect to real bridge APIs for live data
+3.  **Community Launch:** Public release of the informational platform
+4.  **Feature Expansion:** Add more bridges and support for additional tokens
 
 ## 📄 License
-MIT License — see [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
-Built with industry-leading tools: OpenZeppelin, Vite, and inspired by Uniswap, 1inch, and LayerZero protocols.
+This project is built with industry-leading tools like React, Vite, and Tailwind CSS, and takes inspiration from the transparency and community focus of projects like Uniswap, 1inch, and L2BEAT.
 
 ---
-**🚀 Get Started:** `cd the-project_v2 && npm install && npx vite`
+**🚀 Get Started:** `npm install && npx vite`
 
-_Building secure, efficient cross-chain stablecoin infrastructure with TypeScript, smart contracts, and modern development practices._
+_Building transparent and accessible informational tools for the multi-chain world._

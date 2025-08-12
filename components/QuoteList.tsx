@@ -1,9 +1,7 @@
-
-
-import React, { useMemo } from 'react';
-import clsx from 'clsx';
+import React from 'react';
 import type { Route, Token } from '../types';
-import { BestRateIcon, FastestRouteIcon } from './Icons';
+import { ExternalLinkIcon } from './Icons';
+import clsx from 'clsx';
 
 interface QuoteListProps {
   routes: Route[];
@@ -14,99 +12,74 @@ interface QuoteListProps {
 }
 
 export function QuoteList({ routes, selectedRoute, onSelectRoute, fromToken, toToken }: QuoteListProps): React.ReactNode {
-
-  const { bestRate, fastestTime } = useMemo(() => {
-    if (!routes || routes.length === 0) {
-      return { bestRate: 0, fastestTime: Infinity };
-    }
-    const bestRateValue = Math.max(...routes.map(r => parseFloat(r.toAmount)));
-    const fastestTimeValue = Math.min(...routes.map(r => r.estimatedTime));
-    return { bestRate: bestRateValue, fastestTime: fastestTimeValue };
-  }, [routes]);
+  if (routes.length === 0) {
+    return (
+      <div className="text-center text-slate-400 py-8">
+        <p>No bridge information available for this route.</p>
+        <p className="text-xs mt-1">Try a different token pair or amount.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-2">
-      {routes.map((route) => {
-        const routeId = `${route.aggregator.id}-${route.bridge.name}`;
-        const isSelected = selectedRoute ? `${selectedRoute.aggregator.id}-${selectedRoute.bridge.name}` === routeId : false;
-
-        const isBestRate = parseFloat(route.toAmount) === bestRate;
-        const isFastest = route.estimatedTime === fastestTime;
-
-        const feeItems = [route.gasFee, route.serviceFee];
-        const feeLabels = ['Gas', 'Service'];
-
-        const aggregatorFeeValue = route.aggregatorFee ? parseFloat(route.aggregatorFee.replace('$', '')) : 0;
-        if (aggregatorFeeValue > 0) {
-            feeItems.push(route.aggregatorFee);
-            feeLabels.push('Aggregator');
-        }
-
-        const feeDisplayString = feeItems.join(' + ');
-        const feeLabelString = `Fees (${feeLabels.join(' + ')})`;
-
-        return (
-          <button
-            key={routeId}
-            onClick={() => onSelectRoute(route)}
-            className={clsx(
-              "w-full text-left p-3 rounded-lg transition-all duration-200 border-2",
-              isSelected 
-                ? 'bg-slate-700/50 border-brand-primary' 
-                : 'bg-slate-800 border-transparent hover:border-slate-600'
-            )}
-          >
-            {/* Top Section: Main Info */}
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center -space-x-3">
-                  <div className="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center ring-2 ring-slate-800 z-10">
-                    {route.bridge.icon}
-                  </div>
-                  <div className="h-6 w-6 rounded-full bg-slate-700 flex items-center justify-center ring-2 ring-slate-800">
-                    {route.aggregator.icon}
-                  </div>
-                </div>
-                <div>
-                    <span className="font-bold">{route.bridge.name}</span>
-                    <div className="mt-1 flex items-center gap-2 text-xs">
-                        {isBestRate && (
-                        <div className="flex items-center gap-1 text-green-400 bg-green-900/50 px-2 py-0.5 rounded-full">
-                            <BestRateIcon className="h-3 w-3" />
-                            <span>Best Rate</span>
-                        </div>
-                        )}
-                        {isFastest && (
-                        <div className="flex items-center gap-1 text-cyan-400 bg-cyan-900/50 px-2 py-0.5 rounded-full">
-                            <FastestRouteIcon className="h-3 w-3" />
-                            <span>Fastest</span>
-                        </div>
-                        )}
-                    </div>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="font-mono font-bold text-lg text-slate-100">{route.toAmount}</p>
-                <p className="text-xs text-slate-400">~{route.estimatedTime} min</p>
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="text-sm font-medium text-slate-300">Available Bridge Options</h3>
+        <span className="text-xs text-slate-500">Informational Only</span>
+      </div>
+      
+      {routes.map((route, index) => (
+        <div
+          key={`${route.bridge.name}-${index}`}
+          onClick={() => onSelectRoute(route)}
+          className={clsx(
+            "p-3 rounded-lg border cursor-pointer transition-all duration-200 hover:bg-slate-800/50",
+            selectedRoute === route
+              ? "bg-brand-primary/10 border-brand-primary/50"
+              : "bg-slate-850/50 border-slate-700/50 hover:border-slate-600"
+          )}
+        >
+          <div className="flex justify-between items-start">
+            <div className="flex items-center gap-2">
+              <span className="h-6 w-6">{route.bridge.icon}</span>
+              <div>
+                <p className="font-medium text-slate-200">{route.bridge.name}</p>
+                <p className="text-xs text-slate-400">≈{route.estimatedTime} min</p>
               </div>
             </div>
             
-            {/* Bottom Section: Details */}
-            <div className="mt-3 pt-2 border-t border-slate-700/50 text-xs text-slate-400 space-y-1">
-                <div className="flex justify-between items-center">
-                    <span>Rate</span>
-                    <span className="font-mono font-medium text-slate-300">
-                        1 {fromToken.symbol} ≈ {route.rate.toFixed(5)} {toToken.symbol}
-                    </span>
-                </div>
-                <div className="flex justify-between items-center">
-                    <span>{feeLabelString}</span>
-                    <span className="font-mono">{feeDisplayString}</span>
-                </div>
+            <div className="text-right">
+              <p className="font-mono text-slate-200">
+                {parseFloat(route.toAmount).toFixed(2)} {toToken.symbol}
+              </p>
+              <p className="text-xs text-slate-400">
+                Gas: {route.gasFee}
+              </p>
             </div>
-          </button>
-        );
-      })}
+          </div>
+          
+          {route.externalUrl && (
+            <div className="mt-2 pt-2 border-t border-slate-700/50">
+              <a
+                href={route.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ExternalLinkIcon className="h-3 w-3" />
+                Visit {route.bridge.name}
+              </a>
+            </div>
+          )}
+        </div>
+      ))}
+      
+      <div className="mt-3 p-2 bg-slate-800/30 rounded-lg">
+        <p className="text-xs text-slate-500 text-center">
+          Select an option above to view detailed information and proceed on the bridge's official website.
+        </p>
+      </div>
     </div>
   );
 }

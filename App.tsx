@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { FEE_MANAGER_CONTRACT_ADDRESSES } from './config';
 import { SwapCard } from './components/SwapCard';
 import { ConnectWalletButton } from './components/ConnectWalletButton';
 import { TransactionStatusModal } from './components/TransactionStatusModal';
@@ -39,9 +38,6 @@ export default function App(): React.ReactNode {
 
   const [fromToken, setFromToken] = useState<Token>(TOKENS[0]); // Default USDT on Ethereum
   const [toToken, setToToken] = useState<Token>(TOKENS[3]); // Default USDC on Arbitrum
-
-  // Solana warning state
-  const [solanaWarning, setSolanaWarning] = useState<string | null>(null);
 
   const [fromTokenBalance, setFromTokenBalance] = useState<string | null>(null);
 
@@ -94,16 +90,9 @@ export default function App(): React.ReactNode {
   }, [activeProviderId]);
 
   const fetchSolanaBalance = useCallback(async (token: Token, address: string) => {
-    // Check if Solana contract address is configured
-    if (!FEE_MANAGER_CONTRACT_ADDRESSES['solana'] || FEE_MANAGER_CONTRACT_ADDRESSES['solana'].includes('YourSolanaFeeVaultPublicKey') || FEE_MANAGER_CONTRACT_ADDRESSES['solana'].startsWith('FEESarL3iGjWbEa1d2t6jWau1EXNf6C1j5aPjKk2zQz')) {
-      setSolanaWarning('Solana features are unavailable: Solana contract is not deployed or configured.');
-      setFromTokenBalance('0.00');
-      return;
-    }
     // Placeholder: In production, fetch from Solana RPC or use @solana/web3.js
     setFromTokenBalance('123.45');
   }, []);
-
 
   const fetchTronBalance = useCallback(async (token: Token, address: string) => {
     if (!window.tronWeb || !window.tronWeb.ready) {
@@ -276,16 +265,21 @@ export default function App(): React.ReactNode {
   };
 
   const handleSwap = useCallback(async (route: Route, receiverAddress: string) => {
-    setTransactionStatus('pending');
-    console.log("Swapping with receiver address:", receiverAddress, "using route:", route);
+    console.log("Preparing bridge information for:", receiverAddress, "using route:", route);
     
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    const mockTxHash = `0x${[...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')}`;
-    setTxHash(mockTxHash);
-
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Show informational modal
+    setTransactionStatus('pending');
+    
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Redirect to external bridge
+    if (route.externalUrl) {
+      window.open(route.externalUrl, '_blank', 'noopener,noreferrer');
+    }
+    
     setTransactionStatus('success');
 
+    // Save to local history for educational purposes
     if (userAddress) {
       saveTransaction({
         fromToken,
@@ -294,10 +288,11 @@ export default function App(): React.ReactNode {
         toAmount: route.toAmount,
         senderAddress: userAddress,
         receiverAddress,
-        txHash: mockTxHash,
-        serviceFee: route.serviceFee,
+        txHash: 'N/A - External Transaction',
+        serviceFee: '$0.00',
         gasFee: route.gasFee,
         status: 'success',
+        externalUrl: route.externalUrl,
       });
     }
 
@@ -326,11 +321,13 @@ export default function App(): React.ReactNode {
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-slate-200 flex flex-col items-center relative overflow-hidden">
-      {solanaWarning && (
-        <div style={{ background: '#fff3cd', color: '#856404', padding: '12px', borderRadius: '6px', margin: '16px 0', border: '1px solid #ffeeba' }}>
-          <strong>Warning:</strong> {solanaWarning}
-        </div>
-      )}
+      {/* Educational banner */}
+      <div className="w-full bg-blue-900/20 border-b border-blue-700/50 p-2 text-center">
+        <p className="text-xs text-blue-300">
+          <strong>Educational Platform:</strong> This is an informational tool. All transactions are conducted on external bridge websites.
+        </p>
+      </div>
+
       <div className="absolute top-0 left-0 w-full h-full bg-grid-slate-800/20 [mask-image:linear-gradient(to_bottom,white_5%,transparent_50%)]"></div>
       
       <header className="w-full max-w-6xl mx-auto flex justify-between items-center p-4 z-10">
@@ -375,10 +372,15 @@ export default function App(): React.ReactNode {
       </main>
 
       <footer className="w-full text-center p-4 text-slate-500 z-10">
-         <a href="https://github.com/21104988d/project1" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-slate-300 transition-colors">
-            <GithubIcon className="h-5 w-5" />
-            <span>Cross-Chain Swaps</span>
-         </a>
+         <div className="space-y-2">
+           <a href="https://github.com/21104988d/project1" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-slate-300 transition-colors">
+              <GithubIcon className="h-5 w-5" />
+              <span>Cross-Chain Information Aggregator</span>
+           </a>
+           <p className="text-xs">
+             Non-profit • Educational • Open Source
+           </p>
+         </div>
       </footer>
 
       <TransactionStatusModal

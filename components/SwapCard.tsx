@@ -140,26 +140,34 @@ export function SwapCard({
   }
 
   const swapButtonText = useMemo(() => {
-    if (!isWalletConnected) return 'Connect Wallet';
+    if (!isWalletConnected) return 'Connect Wallet to View Data';
     if (!fromAmount) return 'Enter an amount';
     if (!receiverAddress) return 'Enter Receiver Address';
     if (isReceiverInvalid) return 'Invalid Receiver Address Format';
-    if (isLoading) return 'Finding Routes...';
+    if (isLoading) return 'Finding Bridge Information...';
     if (error) return 'Try Again';
-    if (!routes || routes.length === 0) return 'No Routes Found';
-    if (!selectedRoute) return 'Select a Route';
-    return 'Swap';
+    if (!routes || routes.length === 0) return 'No Bridge Data Found';
+    if (!selectedRoute) return 'Select a Bridge Option';
+    return 'View on Bridge Website';
   }, [isWalletConnected, fromAmount, isLoading, error, routes, selectedRoute, receiverAddress, isReceiverInvalid]);
   
   const isSwapDisabled = !isWalletConnected || !!error || !selectedRoute || isLoading || !fromAmount || !receiverAddress || isReceiverInvalid;
 
   return (
     <div className="w-full max-w-md bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-2xl shadow-slate-950/50">
+      {/* Educational disclaimer */}
+      <div className="mb-4 p-3 bg-blue-900/20 border border-blue-700/50 rounded-lg">
+        <p className="text-xs text-blue-300">
+          <strong>Educational Tool:</strong> This platform displays bridge information only. 
+          You'll be redirected to the bridge's official website to conduct transactions.
+        </p>
+      </div>
+
       <div className="space-y-4">
         {/* FROM */}
         <div className="bg-slate-850 p-4 rounded-xl">
           <div className="flex justify-between items-center mb-2 text-xs text-slate-400">
-            <span>You send</span>
+            <span>Amount to transfer</span>
             {isWalletConnected && fromTokenBalance && (
               <div className="flex items-center gap-1">
                 <span>Balance: {fromTokenBalance}</span>
@@ -187,7 +195,7 @@ export function SwapCard({
         {/* TO */}
         <div className="bg-slate-850 p-4 rounded-xl">
            <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-slate-400">You receive (estimated)</span>
+            <span className="text-sm text-slate-400">Estimated amount received</span>
           </div>
           <div className="flex justify-between items-center gap-4">
             <input
@@ -235,7 +243,7 @@ export function SwapCard({
           {/* Receiver Address (always visible) */}
           <div>
             <div className="flex justify-between items-center">
-              <label htmlFor="receiver-address" className="text-xs text-slate-400">Receiver Address</label>
+              <label htmlFor="receiver-address" className="text-xs text-slate-400">Destination Address (for estimation)</label>
               {isWalletConnected && userAddress && (
                  <button onClick={handleUseMyAddress} className="text-xs text-brand-secondary hover:text-brand-secondary-hover">Use my address</button>
               )}

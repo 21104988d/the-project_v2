@@ -13,18 +13,18 @@ interface TransactionStatusModalProps {
 const statusInfo = {
   pending: {
     icon: <LoadingSpinner className="h-16 w-16 text-blue-400" />,
-    title: 'Transaction Submitted',
-    message: 'Your transaction is being processed. Please wait for confirmation on the blockchain.',
+    title: 'Redirecting to Bridge',
+    message: 'You are being redirected to the bridge provider\'s official website to complete your transaction.',
   },
   success: {
     icon: <CheckCircleIcon className="h-16 w-16 text-brand-primary" />,
-    title: 'Transaction Successful',
-    message: 'Your assets have been successfully swapped and are on their way to the destination wallet.',
+    title: 'Information Gathered',
+    message: 'Bridge information has been collected. You can now proceed on the external bridge website.',
   },
   error: {
     icon: <XCircleIcon className="h-16 w-16 text-red-500" />,
-    title: 'Transaction Failed',
-    message: 'Something went wrong with your transaction. Please check your wallet and try again.',
+    title: 'Information Unavailable',
+    message: 'Unable to gather bridge information at this time. Please try again or check the bridge directly.',
   },
 };
 

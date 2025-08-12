@@ -1,36 +1,67 @@
 {
-  "name": "cross-chain-swap-aggregator-backend",
-  "version": "1.0.0",
-  "description": "Deployment and management scripts for the swap aggregator smart contracts.",
-  "main": "index.js",
+  "name": "the-project-aggregator",
+  "version": "3.0.0",
+  "description": "Cross-chain bridge information aggregator - displays routing options from multiple bridge providers",
+  "type": "module",
   "scripts": {
-    "compile:evm": "solcjs --abi --bin --base-path . --include-path ./node_modules/ -o ./build/evm ./contracts/evm/FeeManager.sol",
-    "deploy:evm": "node scripts/evm/deploy.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules/.cache",
+    "setup": "npm install && mkdir -p public/icons"
   },
   "keywords": [
-    "solidity",
-    "ethereum",
-    "ethers",
-    "dapp",
-    "solana",
-    "anchor",
-    "rust"
+    "cross-chain",
+    "bridge",
+    "aggregator",
+    "defi",
+    "information",
+    "react",
+    "typescript"
   ],
-  "author": "",
+  "author": "The Project Team",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/21104988d/the-project_v2.git"
+  },
   "dependencies": {
-    "@openzeppelin/contracts-upgradeable": "^5.0.2",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "clsx": "^2.1.1",
-    "dotenv": "^16.4.5",
-    "ethers": "^6.15.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ethers": "^6.8.0",
+    "clsx": "^2.0.0"
   },
   "devDependencies": {
-    "solc": "^0.8.26",
-    "vite": "^7.0.5"
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

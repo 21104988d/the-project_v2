@@ -48,17 +48,16 @@ export interface Route {
   fromAmount: string;
   toAmount: string;
   gasFee: string;
-  serviceFee: string;
-  aggregatorFee?: string;
+  serviceFee: string; // Always $0.00 for informational platform
   estimatedTime: number; // in minutes
   aggregator: Aggregator;
+  externalUrl?: string; // URL to external bridge provider
 }
 
 export type TransactionStatus = 'idle' | 'loading' | 'pending' | 'success' | 'error';
 
 export interface TransactionRecord {
   id: string; // Using txHash for uniqueness
-  timestamp: number;
   fromToken: Token;
   toToken: Token;
   fromAmount: string;
@@ -66,7 +65,9 @@ export interface TransactionRecord {
   senderAddress: string;
   receiverAddress: string;
   txHash: string;
-  serviceFee: string;
+  serviceFee: string; // Always $0.00
   gasFee: string;
-  status: 'success'; // We only log successful transactions
+  status: 'success' | 'failed' | 'pending';
+  timestamp?: number;
+  externalUrl?: string; // URL where transaction was actually conducted
 }
