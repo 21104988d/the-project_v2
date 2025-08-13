@@ -247,6 +247,130 @@ class TokenAutomationService {
     return 'major';
   }
 
+  async syncExistingTokens() {
+    console.log('🔄 開始同步現有代幣...');
+    
+    try {
+      // 1. 獲取當前CoinGecko的代幣數據
+      const currentTokensData = await this.getAllCoinGeckoTokens();
+      const currentTokens = new Map();
+      
+      // 建立當前代幣的映射 (symbol -> token data)
+      currentTokensData.forEach(token => {
+        currentTokens.set(token.symbol.toLowerCase(), token);
+      });
+
+      // 2. 讀取現有constants.tsx中的代幣
+      const constantsContent = await fs.readFile(this.constantsPath, 'utf8');
+      const existingTokens = this.extractExistingTokens(constantsContent);
+      
+      const syncResults = {
+        validated: 0,
+        removed: 0,
+        updated: 0,
+        removedTokens: []
+      };
+
+      // 3. 驗證每個現有代幣
+      for (const existingToken of existingTokens) {
+        const tokenSymbol = existingToken.symbol.toLowerCase();
+        const currentToken = currentTokens.get(tokenSymbol);
+
+        if (!currentToken) {
+          // 代幣不再存在於CoinGecko前100 - 移除
+          console.log(`❌ 代幣 ${existingToken.symbol} 不再在CoinGecko前100位，準備移除`);
+          await this.removeTokenFromConstants(existingToken);
+          syncResults.removed++;
+          syncResults.removedTokens.push(existingToken.symbol);
+        } else if (currentToken.marketCap < 100000000) {
+          // 市值低於閾值 - 移除
+          console.log(`📉 代幣 ${existingToken.symbol} 市值過低 ($${currentToken.marketCap.toLocaleString()})，準備移除`);
+          await this.removeTokenFromConstants(existingToken);
+          syncResults.removed++;
+          syncResults.removedTokens.push(existingToken.symbol);
+        } else {
+          // 代幣仍然有效
+          console.log(`✅ 代幣 ${existingToken.symbol} 驗證通過 (市值: $${currentToken.marketCap.toLocaleString()})`);
+          syncResults.validated++;
+        }
+      }
+
+      console.log(`🔄 同步完成: 驗證 ${syncResults.validated} 個，移除 ${syncResults.removed} 個`);
+      return syncResults;
+
+    } catch (error) {
+      console.error('同步現有代幣失敗:', error);
+      return { validated: 0, removed: 0, updated: 0, removedTokens: [] };
+    }
+  }
+
+  async getAllCoinGeckoTokens() {
+    try {
+      const response = await axios.get(
+        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1',
+        {
+          timeout: 15000,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (compatible; Token-Automation/1.0)'
+          }
+        }
+      );
+
+      return (response.data || []).map(token => ({
+        symbol: token.symbol.toUpperCase(),
+        name: token.name,
+        marketCap: token.market_cap || 0,
+        coingeckoId: token.id
+      }));
+    } catch (error) {
+      console.error('獲取CoinGecko代幣數據失敗:', error);
+      return [];
+    }
+  }
+
+  extractExistingTokens(constantsContent) {
+    const tokens = [];
+    const tokenRegex = /{\s*symbol:\s*['"`]([^'"`]+)['"`][^}]*name:\s*['"`]([^'"`]+)['"`][^}]*}/g;
+    
+    let match;
+    while ((match = tokenRegex.exec(constantsContent)) !== null) {
+      tokens.push({
+        symbol: match[1],
+        name: match[2]
+      });
+    }
+    
+    return tokens;
+  }
+
+  async removeTokenFromConstants(token) {
+    try {
+      let content = await fs.readFile(this.constantsPath, 'utf8');
+      
+      // 創建更精確的匹配模式來移除整個代幣對象
+      const tokenPattern = new RegExp(
+        `\\s*{[^}]*symbol:\\s*['"\`]${token.symbol}['"\`][^}]*}[,\\s]*`,
+        'g'
+      );
+      
+      content = content.replace(tokenPattern, '');
+      
+      // 清理可能的多餘逗號
+      content = content.replace(/,(\s*),/g, ',');
+      content = content.replace(/,(\s*)\]/g, '$1]');
+      
+      await fs.writeFile(this.constantsPath, content, 'utf8');
+      console.log(`🗑️ 已從constants.tsx移除代幣: ${token.symbol}`);
+      
+      // 同時從已知代幣集合中移除
+      this.knownTokens.delete(token.symbol.toLowerCase());
+      
+    } catch (error) {
+      console.error(`移除代幣 ${token.symbol} 失敗:`, error);
+      throw error;
+    }
+  }
+
   async addNewToken(token) {
     try {
       console.log(`➕ 添加新代幣: ${token.symbol} (${token.name})`);
@@ -333,15 +457,25 @@ class TokenAutomationService {
     console.log('🚀 開始代幣自動化服務...');
     
     try {
+      // 1. 同步現有代幣 (驗證和清理)
+      console.log('🔄 同步現有代幣...');
+      const syncResults = await this.syncExistingTokens();
+      
+      // 2. 發現新代幣
+      console.log('🔍 發現新代幣...');
       const newTokens = await this.discoverNewTokens();
       
-      if (newTokens.length === 0) {
-        console.log('📋 沒有發現新的代幣');
+      if (newTokens.length === 0 && syncResults.removed === 0) {
+        console.log('📋 沒有發現新的代幣，無需移除舊代幣');
+        await this.generateReport([], 0, syncResults);
         return;
       }
 
-      console.log(`🎯 發現 ${newTokens.length} 個新代幣`);
+      if (newTokens.length > 0) {
+        console.log(`🎯 發現 ${newTokens.length} 個新代幣`);
+      }
 
+      // 3. 添加新代幣
       let addedCount = 0;
       for (const token of newTokens) {
         const success = await this.addNewToken(token);
@@ -353,17 +487,17 @@ class TokenAutomationService {
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
 
-      console.log(`✨ 自動化完成！成功添加 ${addedCount} 個新代幣`);
+      console.log(`✨ 自動化完成！成功添加 ${addedCount} 個新代幣，移除 ${syncResults.removed} 個代幣`);
       
-      // 生成報告
-      await this.generateReport(newTokens, addedCount);
+      // 4. 生成報告
+      await this.generateReport(newTokens, addedCount, syncResults);
 
     } catch (error) {
       console.error('🚨 代幣自動化服務執行失敗:', error);
     }
   }
 
-  async generateReport(discoveredTokens, addedCount) {
+  async generateReport(discoveredTokens, addedCount, syncResults = null) {
     const report = {
       timestamp: new Date().toISOString(),
       discovered: discoveredTokens.length,
@@ -376,6 +510,16 @@ class TokenAutomationService {
         category: t.category
       }))
     };
+
+    // 添加同步結果到報告
+    if (syncResults) {
+      report.sync = {
+        validated: syncResults.validated,
+        removed: syncResults.removed,
+        updated: syncResults.updated,
+        removedTokens: syncResults.removedTokens
+      };
+    }
 
     const reportPath = path.join(__dirname, '../reports', `token-automation-${Date.now()}.json`);
     

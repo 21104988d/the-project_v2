@@ -143,6 +143,155 @@ class BridgeAutomationService {
     return potentialBridges;
   }
 
+  async syncExistingBridges() {
+    console.log('🔄 開始同步現有橋接協議...');
+    
+    try {
+      // 1. 獲取當前DeFiLlama的所有橋接數據
+      const currentBridgesData = await this.getAllDeFiLlamaBridges();
+      const currentBridges = new Map();
+      
+      // 建立當前橋接的映射 (name -> bridge data)
+      currentBridgesData.forEach(bridge => {
+        currentBridges.set(bridge.name.toLowerCase(), bridge);
+      });
+
+      // 2. 讀取現有constants.tsx中的橋接
+      const constantsContent = await fs.readFile(this.constantsPath, 'utf8');
+      const existingBridges = this.extractExistingBridges(constantsContent);
+      
+      const syncResults = {
+        validated: 0,
+        removed: 0,
+        updated: 0,
+        removedBridges: []
+      };
+
+      // 3. 驗證每個現有橋接
+      for (const existingBridge of existingBridges) {
+        const bridgeName = existingBridge.name.toLowerCase();
+        const currentBridge = currentBridges.get(bridgeName);
+
+        if (!currentBridge) {
+          // 橋接不再存在於DeFiLlama - 移除
+          console.log(`❌ 橋接 ${existingBridge.name} 不再存在於DeFiLlama，準備移除`);
+          await this.removeBridgeFromConstants(existingBridge);
+          syncResults.removed++;
+          syncResults.removedBridges.push(existingBridge.name);
+        } else if (currentBridge.tvl < 1000000) {
+          // TVL低於閾值 - 移除
+          console.log(`📉 橋接 ${existingBridge.name} TVL過低 ($${currentBridge.tvl.toLocaleString()})，準備移除`);
+          await this.removeBridgeFromConstants(existingBridge);
+          syncResults.removed++;
+          syncResults.removedBridges.push(existingBridge.name);
+        } else {
+          // 橋接仍然有效 - 可選擇更新數據
+          console.log(`✅ 橋接 ${existingBridge.name} 驗證通過 (TVL: $${currentBridge.tvl.toLocaleString()})`);
+          syncResults.validated++;
+          
+          // 可以在此處添加更新邏輯，如果TVL或其他數據有顯著變化
+          if (Math.abs(existingBridge.tvl - currentBridge.tvl) > existingBridge.tvl * 0.5) {
+            console.log(`📊 更新 ${existingBridge.name} 的TVL數據`);
+            await this.updateBridgeTVL(existingBridge, currentBridge.tvl);
+            syncResults.updated++;
+          }
+        }
+      }
+
+      console.log(`🔄 同步完成: 驗證 ${syncResults.validated} 個，移除 ${syncResults.removed} 個，更新 ${syncResults.updated} 個`);
+      return syncResults;
+
+    } catch (error) {
+      console.error('同步現有橋接協議失敗:', error);
+      return { validated: 0, removed: 0, updated: 0, removedBridges: [] };
+    }
+  }
+
+  async getAllDeFiLlamaBridges() {
+    try {
+      const response = await axios.get('https://bridges.llama.fi/bridges', {
+        timeout: 15000,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; Bridge-Automation/1.0)'
+        }
+      });
+
+      return (response.data.bridges || []).map(bridge => ({
+        name: bridge.displayName || bridge.name,
+        tvl: bridge.tvl || 0,
+        volume24h: bridge.volume24h || 0,
+        chains: bridge.chains || []
+      }));
+    } catch (error) {
+      console.error('獲取DeFiLlama橋接數據失敗:', error);
+      return [];
+    }
+  }
+
+  extractExistingBridges(constantsContent) {
+    const bridges = [];
+    const bridgeRegex = /{\s*id:\s*['"`]([^'"`]+)['"`][^}]*name:\s*['"`]([^'"`]+)['"`][^}]*tvl:\s*(\d+)[^}]*}/g;
+    
+    let match;
+    while ((match = bridgeRegex.exec(constantsContent)) !== null) {
+      bridges.push({
+        id: match[1],
+        name: match[2],
+        tvl: parseInt(match[3]) || 0
+      });
+    }
+    
+    return bridges;
+  }
+
+  async removeBridgeFromConstants(bridge) {
+    try {
+      let content = await fs.readFile(this.constantsPath, 'utf8');
+      
+      // 創建更精確的匹配模式來移除整個橋接對象
+      const bridgePattern = new RegExp(
+        `\\s*{[^}]*id:\\s*['"\`]${bridge.id}['"\`][^}]*}[,\\s]*`,
+        'g'
+      );
+      
+      content = content.replace(bridgePattern, '');
+      
+      // 清理可能的多餘逗號
+      content = content.replace(/,(\s*),/g, ',');
+      content = content.replace(/,(\s*)\]/g, '$1]');
+      
+      await fs.writeFile(this.constantsPath, content, 'utf8');
+      console.log(`🗑️ 已從constants.tsx移除橋接: ${bridge.name}`);
+      
+      // 同時從已知橋接集合中移除
+      this.knownBridges.delete(bridge.name.toLowerCase());
+      
+    } catch (error) {
+      console.error(`移除橋接 ${bridge.name} 失敗:`, error);
+      throw error;
+    }
+  }
+
+  async updateBridgeTVL(bridge, newTVL) {
+    try {
+      let content = await fs.readFile(this.constantsPath, 'utf8');
+      
+      // 更新TVL值
+      const tvlPattern = new RegExp(
+        `(id:\\s*['"\`]${bridge.id}['"\`][^}]*tvl:\\s*)\\d+`,
+        'g'
+      );
+      
+      content = content.replace(tvlPattern, `$1${newTVL}`);
+      
+      await fs.writeFile(this.constantsPath, content, 'utf8');
+      console.log(`📊 已更新 ${bridge.name} 的TVL: $${newTVL.toLocaleString()}`);
+      
+    } catch (error) {
+      console.error(`更新橋接 ${bridge.name} TVL失敗:`, error);
+    }
+  }
+
   async addNewBridge(bridge) {
     try {
       console.log(`➕ 添加新橋接協議: ${bridge.name}`);
@@ -231,40 +380,49 @@ export const ${iconName}: React.FC<IconProps> = ({ size = 24 }) => (
   }
 
   async runAutomation() {
-    console.log('🚀 開始橋接協議自動化服務...');
+    console.log('🚀 開始橋接協議自動化...');
     
     try {
+      // 1. 同步現有橋接協議 (驗證和清理)
+      console.log('🔄 同步現有橋接協議...');
+      const syncResults = await this.syncExistingBridges();
+      
+      // 2. 發現新橋接協議
+      console.log('🔍 發現新橋接協議...');
       const newBridges = await this.discoverNewBridges();
       
-      if (newBridges.length === 0) {
-        console.log('📋 沒有發現新的橋接協議');
+      if (newBridges.length === 0 && syncResults.removed === 0) {
+        console.log('✅ 未發現新的橋接協議，無需移除舊協議');
+        await this.generateReport([], 0, syncResults);
         return;
       }
 
-      console.log(`🎯 發現 ${newBridges.length} 個新橋接協議`);
+      if (newBridges.length > 0) {
+        console.log(`📋 發現 ${newBridges.length} 個新橋接協議:`);
+        newBridges.forEach((bridge, index) => {
+          console.log(`${index + 1}. ${bridge.name} (TVL: $${bridge.tvl.toLocaleString()})`);
+        });
+      }
 
+      // 3. 添加新橋接協議
       let addedCount = 0;
       for (const bridge of newBridges) {
         const success = await this.addNewBridge(bridge);
-        if (success) {
-          addedCount++;
-        }
-        
-        // 添加延遲避免過於頻繁的操作
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        if (success) addedCount++;
       }
 
-      console.log(`✨ 自動化完成！成功添加 ${addedCount} 個新橋接協議`);
+      console.log(`✅ 橋接協議自動化完成，新增 ${addedCount}/${newBridges.length} 個協議，移除 ${syncResults.removed} 個協議`);
       
-      // 生成報告
-      await this.generateReport(newBridges, addedCount);
-
+      // 4. 生成報告
+      await this.generateReport(newBridges, addedCount, syncResults);
+      
     } catch (error) {
-      console.error('🚨 橋接協議自動化服務執行失敗:', error);
+      console.error('❌ 橋接協議自動化失敗:', error);
+      throw error;
     }
   }
 
-  async generateReport(discoveredBridges, addedCount) {
+  async generateReport(discoveredBridges, addedCount, syncResults = null) {
     const report = {
       timestamp: new Date().toISOString(),
       discovered: discoveredBridges.length,
@@ -275,6 +433,16 @@ export const ${iconName}: React.FC<IconProps> = ({ size = 24 }) => (
         networks: b.networks.length
       }))
     };
+
+    // 添加同步結果到報告
+    if (syncResults) {
+      report.sync = {
+        validated: syncResults.validated,
+        removed: syncResults.removed,
+        updated: syncResults.updated,
+        removedBridges: syncResults.removedBridges
+      };
+    }
 
     const reportPath = path.join(__dirname, '../reports', `bridge-automation-${Date.now()}.json`);
     

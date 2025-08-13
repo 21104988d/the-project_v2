@@ -8,6 +8,7 @@
     "scheduler": "node automationScheduler.js",
     "bridge-automation": "node -e \"const BridgeAutomationService = require('./services/bridgeAutomation'); new BridgeAutomationService().runAutomation();\"",
     "token-automation": "node -e \"const TokenAutomationService = require('./services/tokenAutomation'); new TokenAutomationService().runAutomation();\"",
+    "test-sync": "node test-sync.js",
     "dev": "nodemon api.js"
   },
   "dependencies": {

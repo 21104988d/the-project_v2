@@ -15,7 +15,8 @@
     "backend": "cd backend && npm start",
     "backend:scheduler": "cd backend && npm run scheduler",
     "backend:bridge": "cd backend && npm run bridge-automation",
-    "backend:token": "cd backend && npm run token-automation"
+    "backend:token": "cd backend && npm run token-automation",
+    "test:sync": "cd backend && npm run test-sync"
   },
   "keywords": [
     "cross-chain",

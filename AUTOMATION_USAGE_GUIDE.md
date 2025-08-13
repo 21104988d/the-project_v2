@@ -15,15 +15,27 @@ Your backend automation system has been successfully launched and is running. He
 ### 🌉 Bridge Protocol Automation
 - **Execution Interval**: Every 24 hours
 - **Data Sources**: DeFiLlama Bridges API + Ecosystem Scanning
-- **Filter Criteria**: TVL > $1M
-- **Current Status**: ✅ Discovered and added LayerZero
+- **Add Criteria**: TVL > $1M
+- **Remove Criteria**: TVL < $1M or no longer exists in DeFiLlama
+- **Sync Features**: 
+  - ✅ Auto-discover new bridges
+  - ✅ Auto-remove inactive/low-TVL bridges
+  - ✅ Auto-update TVL data (when changed >50%)
+  - ✅ Validate existing bridges against current data
+- **Current Status**: ✅ Enhanced with full sync capabilities
 - **Next Execution**: Check `/api/automation/status`
 
 ### 💰 Token Automation
 - **Execution Interval**: Every 12 hours
 - **Data Sources**: CoinGecko API + DeFi Protocols + Multi-chain Tokens
-- **Filter Criteria**: Market Cap > $100M
-- **Current Status**: ✅ Added 98 mainstream tokens
+- **Add Criteria**: Market Cap > $100M and top 100 on CoinGecko
+- **Remove Criteria**: Market Cap < $100M or no longer in top 100
+- **Sync Features**:
+  - ✅ Auto-discover new tokens
+  - ✅ Auto-remove tokens outside top 100
+  - ✅ Auto-remove low market cap tokens
+  - ✅ Validate existing tokens against current data
+- **Current Status**: ✅ Enhanced with full sync capabilities
 - **Next Execution**: Check `/api/automation/status`
 
 ## 🎮 Manual Control
@@ -41,12 +53,33 @@ curl -X POST http://localhost:3001/api/automation/bridges/run
 curl -X POST http://localhost:3001/api/automation/tokens/run
 ```
 
-## 📊 Monitoring and Reports
+## 📊 Enhanced Reporting
+
+### New Report Format
+Each automation run now generates detailed sync reports:
+
+```json
+{
+  "timestamp": "2025-08-13T...",
+  "discovered": 2,
+  "added": 2,
+  "bridges": [...],
+  "sync": {
+    "validated": 15,
+    "removed": 1,
+    "updated": 3,
+    "removedBridges": ["InactiveBridge"]
+  }
+}
+```
 
 ### View Execution Reports
 ```bash
 # Get reports list
 curl http://localhost:3001/api/automation/reports
+
+# View detailed sync results
+curl http://localhost:3001/api/automation/reports/latest
 
 # View specific report
 curl http://localhost:3001/api/automation/reports/token-automation-1755017540667.json
